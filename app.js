@@ -10,3 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to React Public Holidays</h1>");
 });
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
