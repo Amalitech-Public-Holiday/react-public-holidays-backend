@@ -19,6 +19,23 @@ const createUser = (req, res) => {
   );
 };
 
+const getUserByEmail = (req, res) => {
+  const {email} = req.query;
+  db.query(
+    'SELECT * FROM users WHERE email = $1',
+    [email],
+    (error, results) => {
+      if (error) console.log(error);
+      if (results.rows.length === 0) {
+        res.sendStatus(404);
+      } else {
+        res.status(200).json(results.rows[0]);
+      }
+    }
+  );
+}
+
 module.exports = {
-  createUser
+  createUser,
+  getUserByEmail
 }
