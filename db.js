@@ -13,8 +13,11 @@ const createUser = (req, res) => {
     "INSERT INTO users (fullname, email, password) VALUES($1, $2, $3)",
     [fullname, email, password],
     (error, results) => {
-      if (error) console.log(error);
-      res.sendStatus(200);
+      if (error) {
+        res.send(error);
+      } else {
+        res.sendStatus(200);
+      }
     }
   );
 };
@@ -25,11 +28,14 @@ const getUserByEmail = (req, res) => {
     'SELECT * FROM users WHERE email = $1',
     [email],
     (error, results) => {
-      if (error) console.log(error);
-      if (results.rows.length === 0) {
-        res.sendStatus(404);
+      if (error) {
+        res.send(error);
       } else {
-        res.status(200).json(results.rows[0]);
+        if (results.rows.length === 0) {
+          res.sendStatus(404);
+        } else {
+          res.status(200).json(results.rows[0]);
+        }
       }
     }
   );
