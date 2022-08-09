@@ -1,6 +1,6 @@
 const Pool = require("pg").Pool;
 const db = new Pool({
-  user: "me",
+  user: "postgres",
   host: "localhost",
   database: "react_public_holidays",
   password: "prince.asamoah@29",
@@ -18,3 +18,7 @@ const createUser = (req, res) => {
     }
   );
 };
+
+module.exports = {
+  createUser
+}
