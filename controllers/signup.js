@@ -14,12 +14,8 @@ const createUser = (req, res) => {
         "INSERT INTO users (fullname, email, password) VALUES($1, $2, $3)",
         [fullname, email, passwordHash],
         (error, results) => {
-          if (error.code === 23505) {
-            res.send(403).json({error: 'Email already exist, login or signup with another email!'});
-            throw error;
-          } else {
-            res.sendStatus(200);
-          }
+          if (error) console.log(error);
+          res.json({success: 'Account creation successful, you can login now!'});
         }
       );
     }
