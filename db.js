@@ -1,5 +1,6 @@
 const Client = require("pg").Client;
 const bcrypt = require('bcrypt');
+require("dotenv").config();
 
 const db = new Client({
   connectionString: process.env.DATABASE_URL,
