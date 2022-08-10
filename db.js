@@ -1,4 +1,6 @@
 const Pool = require("pg").Pool;
+const bcrypt = require('bcrypt');
+
 const db = new Pool({
   user: "postgres",
   host: "localhost",
@@ -9,17 +11,26 @@ const db = new Pool({
 
 const createUser = (req, res) => {
   const { fullname, email, password } = req.body;
-  db.query(
-    "INSERT INTO users (fullname, email, password) VALUES($1, $2, $3)",
-    [fullname, email, password],
-    (error, results) => {
-      if (error) {
-        res.send(error);
-      } else {
-        res.sendStatus(200);
-      }
+  const saltRounds = 10;
+  bcrypt.hash(password, saltRounds, function(error, hash) {
+    let passwordHash;
+    if (error) {
+      throw Error(error);
+    } else {
+      passwordHash = hash;
+      db.query(
+        "INSERT INTO users (fullname, email, password) VALUES($1, $2, $3)",
+        [fullname, email, passwordHash],
+        (error, results) => {
+          if (error) {
+            throw Error(error);
+          } else {
+            res.sendStatus(200);
+          }
+        }
+      );
     }
-  );
+  });
 };
 
 const getUserByEmail = (req, res) => {
