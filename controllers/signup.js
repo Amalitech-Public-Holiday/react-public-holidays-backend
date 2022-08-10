@@ -40,7 +40,7 @@ const getUserByEmail = (req, res) => {
         if (results.rows.length === 0) {
           res.sendStatus(200);
         } else {
-          res.status(400).json({message:'Email already exist, login or signup with another email!'});
+          res.json({message:'Email already exist, login or signup with another email!'});
         }
       }
     }
