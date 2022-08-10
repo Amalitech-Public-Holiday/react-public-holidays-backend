@@ -1,13 +1,14 @@
-const Pool = require("pg").Pool;
+const Client = require("pg").Client;
 const bcrypt = require('bcrypt');
 
-const db = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "react_public_holidays",
-  password: "prince.asamoah@29",
-  port: 5432,
+const db = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
+
+db.connect();
 
 const createUser = (req, res) => {
   const { fullname, email, password } = req.body;
