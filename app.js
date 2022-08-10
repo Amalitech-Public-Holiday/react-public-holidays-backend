@@ -9,7 +9,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.send("<h1>Welcome to React Public Holidays</h1>");
+  res.send(
+    '<h1 style="text-align:center;margin-top: 5rem">Welcome to React Public Holidays</h1>'
+    );
 });
 
 app.get('/users', getUserByEmail);
