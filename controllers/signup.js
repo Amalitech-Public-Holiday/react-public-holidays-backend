@@ -34,13 +34,12 @@ const getUserByEmail = (req, res) => {
     [email],
     (error, results) => {
       if (error) {
-        res.send(error);
         console.log(error);
       } else {
-        if (results.rows.length === 0) {
-          res.sendStatus(200);
+        if (results.rows.length !== 0) {
+          res.json({message:'Email already exist, signup with another email!'});
         } else {
-          res.json({message:'Email already exist, login or signup with another email!'});
+          res.send([]);
         }
       }
     }
