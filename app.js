@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 app.get('/users', getUserByEmail);
-app.get('/users/login', getUserEmailAndPassword);
+app.post('/users/login', getUserEmailAndPassword);
 app.post('/users/signup', createUser);
 
 app.listen(PORT, () => {
