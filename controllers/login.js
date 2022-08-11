@@ -9,15 +9,12 @@ const getUserEmailAndPassword = (req, res) => {
         bcrypt.compare(password, user.password, function(error, result) {
             if (error) {
                 console.log(error);
-                res.status(500).json({error: 'Login unsuccessful, try again!'})
+                res.status(500).json({error500: 'Login unsuccessful due to server error, try again!'})
             } else {
                 if (result) {
-                    res.status(200).json(
-                        {success: 'Login successful',
-                        user: user.fullname}
-                    );
+                    res.status(200).json(user.fullname);
                 } else {
-                    res.status(404).json({error: 'Email or password is incorrect, try again!'});
+                    res.status(404).json({error404: 'Email or password is incorrect, try again!'});
                 }
             }
         });
